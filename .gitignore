@@ -27,4 +27,5 @@ server/pretrained/
 server/train.txt
 server/eval.txt
 server/gpt2_model/
+server/gpt2_yq_model/
 server/processed/
