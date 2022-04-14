@@ -1,4 +1,4 @@
-# NLP 实践
+# NLP 实践课作业
 
 核心的模型用的是[这个](https://github.com/Karshilov/gpt2-finetuning)做的
 
