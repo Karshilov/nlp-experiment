@@ -45,8 +45,9 @@
     margin-left: 14rem;
     margin-right: 14rem;
     padding-top: 2rem;
-    margin-top: 4rem;
+    margin-top: 8rem;
     position: relative;
+    font-size: 1.2rem;
     .editor {
       min-height: 400px;
       left: 0.25rem;
@@ -63,6 +64,8 @@
       color: #b3afa9;
     }
     @media (max-width: 480px) {
+      margin-top: 4rem;
+      font-size: 1.1rem;
       width: calc(100% - 3rem);
       margin-left: 1.5rem;
       margin-right: 1.5rem;
