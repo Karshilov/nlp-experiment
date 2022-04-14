@@ -1,6 +1,10 @@
 <script lang="ts">
   import Navbar from "./lib/Navbar.svelte";
   import Content from "./lib/Content.svelte";
+  import { setContext } from "svelte";
+  import { writable } from "svelte/store";
+  let modelType = writable("all");
+  setContext("type", modelType);
 </script>
 
 <main>

@@ -1,6 +1,13 @@
 <script lang="ts">
   import { Select, SelectItem } from "carbon-components-svelte";
+  import type { Writable } from "svelte/store";
+  import { getContext } from "svelte";
   let modelType: string = "all";
+  let store: Writable<string> = getContext("type");
+  const update = (value: string) => {
+    $store = value;
+  };
+  $: update(modelType);
 </script>
 
 <nav>
@@ -8,7 +15,7 @@
   <p>NLP实践作业</p>
   <div class="divid" />
   <div class="pc-only">
-    <Select bind:value={modelType} style="flex-grow: 0;" light>
+    <Select bind:selected={modelType} style="flex-grow: 0;" light>
       <SelectItem value="all" text="未筛选网文" />
       <SelectItem value="yq" text="女频言情小说" />
     </Select>
