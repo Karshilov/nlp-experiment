@@ -4,16 +4,16 @@
   const getContent = (node: HTMLElement) => {
     const listener = (e: InputEvent) => {
       if (e.inputType.startsWith("in") && e.inputType !== 'insertParagraph') {
-        const selection = getSelection();
         const text = e.data ? e.data : e.dataTransfer.getData("text/html");
         e.preventDefault();
         const newText = text.split(/<[^<>]*>/).join("");
         content += newText;
-        const targetNode = node.children.length === 0 ? node : node.children[node.children.length - 1];
-        targetNode.textContent += newText;
+        const targetElement = node.children.length === 0 ? node : node.children[node.children.length - 1];
+        targetElement.textContent += newText;
+        const selection = getSelection();
         const range = selection.getRangeAt(0);
         range.collapse(true);
-        range.setStartAfter(node.childNodes[node.childNodes.length - 1])
+        range.setStartAfter(node.childNodes[node.childNodes.length - 1]);
         selection.removeAllRanges();
         selection.addRange(range);
       }
