@@ -8,7 +8,7 @@
   <p>NLP实践作业</p>
   <div class="divid" />
   <div class="pc-only">
-    <Select bind:value={modelType} style="flex-grow: 0;">
+    <Select bind:value={modelType} style="flex-grow: 0;" light>
       <SelectItem value="all" text="未筛选网文" />
       <SelectItem value="yq" text="女频言情小说" />
     </Select>

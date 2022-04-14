@@ -4,24 +4,26 @@
   const getContent = (node: HTMLElement) => {
     const listener = (e: InputEvent) => {
       if (e.inputType.startsWith("in") && e.inputType !== 'insertParagraph') {
-        const text = e.data ? e.data : e.dataTransfer.getData("text/html");
+        isEmpty = false;
+        if (e.isComposing) return;
+        const selection = getSelection();
         e.preventDefault();
+        const text = e.data ? e.data : e.dataTransfer.getData("text/html");
         const newText = text.split(/<[^<>]*>/).join("");
         content += newText;
         const targetElement = node.children.length === 0 ? node : node.children[node.children.length - 1];
         targetElement.textContent += newText;
-        const selection = getSelection();
         const range = selection.getRangeAt(0);
         range.collapse(true);
         range.setStartAfter(node.childNodes[node.childNodes.length - 1]);
         selection.removeAllRanges();
         selection.addRange(range);
       }
-      if (content) isEmpty = false;
-      else isEmpty = true;
     };
     const inputListener = (_e: InputEvent) => {
       content = node.innerHTML.split(/<[^<>]*>/).join("");
+      if (content) isEmpty = false;
+      else isEmpty = true;
     }
     node.addEventListener("beforeinput", listener);
     node.addEventListener("input", inputListener);
@@ -56,6 +58,10 @@
       border: 0px;
       outline: none;
       position: absolute;
+      font-size: 1.2rem;
+      @media (max-width: 480px) {
+        font-size: 1.1rem;
+      }
     }
     .placeholder {
       left: 0.25rem;
