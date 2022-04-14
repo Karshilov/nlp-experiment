@@ -1,9 +1,11 @@
 <script lang="ts">
   import Navbar from "./lib/Navbar.svelte";
+  import Content from "./lib/Content.svelte";
 </script>
 
 <main>
   <Navbar />
+  <Content />
 </main>
 
 <style>
@@ -13,20 +15,6 @@
   }
 
   main {
-    text-align: center;
-    padding: 1em;
     margin: 0 auto;
-  }
-
-  @media (max-width: 480px) {
-    :root {
-      font-size: 16px;
-    }
-  }
-
-  @media (min-width: 480px) {
-    :root {
-      font-size: 28px;
-    }
   }
 </style>

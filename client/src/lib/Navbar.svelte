@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Select, SelectItem } from "carbon-components-svelte";
   let modelType: string = "all";
 </script>
 
@@ -6,19 +7,20 @@
   <h1>GPT网文续写</h1>
   <p>NLP实践作业</p>
   <div class="divid" />
-  <select bind:value={modelType}>
-    <option value="all">未筛选网文</option>
-    <option value="yq">女频言情小说</option>
-  </select>
+  <div class="pc-only">
+    <Select bind:value={modelType} style="flex-grow: 0;">
+      <SelectItem value="all" text="未筛选网文" />
+      <SelectItem value="yq" text="女频言情小说" />
+    </Select>
+  </div>
 </nav>
 
 <style lang="scss">
   nav {
-    width: 100%;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
+    padding-left: 12rem;
+    padding-right: 12rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -29,7 +31,7 @@
     h1 {
       color: #ff3e00;
       text-transform: uppercase;
-      font-size: 1rem;
+      font-size: 1.5rem;
       font-weight: 100;
       line-height: 1.1;
       margin: auto 2rem;
@@ -41,12 +43,17 @@
       margin: auto 1rem;
       line-height: 1.35;
     }
-    @media (min-width: 480px) {
+
+    @media (max-width: 480px) {
+      padding-left: 1rem;
+      padding-right: 1rem;
       h1 {
+        margin: auto 0.5rem;
         max-width: none;
       }
 
       p {
+        margin: auto 0.5rem;
         max-width: none;
       }
     }
@@ -54,5 +61,11 @@
 
   .divid {
     flex-grow: 1;
+  }
+
+  @media (max-width: 480px) {
+    nav > .pc-only {
+      display: none;
+    }
   }
 </style>
