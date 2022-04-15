@@ -22,6 +22,7 @@
   let modelType: Writable<string> = getContext("type");
   let content = "";
   let isEmpty = true;
+  let isLoading = false;
   const getContent = (node: HTMLElement) => {
     const listener = (e: InputEvent) => {
       if (e.inputType.startsWith("in") && e.inputType !== "insertParagraph") {
@@ -127,6 +128,7 @@
   };
 
   const getGeneratedText = async () => {
+    isLoading = true;
     const prefixes = content.split(/。！？/).filter((i) => i.trim() !== "");
     let prefix = "，";
     prefixes.reverse().forEach((value) => {
@@ -146,6 +148,7 @@
       .split(/ /)
       .join("");
     document.querySelector(".editor").appendChild(strong);
+    isLoading = false;
   };
 </script>
 
@@ -153,7 +156,20 @@
   <div class="placeholder" hidden={!isEmpty}>请输入一段文本作为开头</div>
   <div class="editor" contenteditable use:getContent />
 </div>
-<img src={pen} alt="" on:click={getGeneratedText} />
+{#if !isLoading}
+  <img src={pen} alt="" on:click={getGeneratedText} />
+{:else}
+  <div class="lds-roller">
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+{/if}
 
 <style lang="scss">
   img {
@@ -164,7 +180,6 @@
     cursor: pointer;
     @media (max-width: 480px) {
       bottom: 2rem;
-      width: 2rem;
       right: 2rem;
     }
   }
@@ -205,6 +220,97 @@
       width: calc(100% - 3rem);
       margin-left: 1.5rem;
       margin-right: 1.5rem;
+    }
+  }
+  .lds-roller {
+    display: inline-block;
+    position: fixed;
+    width: 3rem;
+    height: 3rem;
+    right: 4rem;
+    bottom: 8rem;
+    cursor: pointer;
+    @media (max-width: 480px) {
+      bottom: 2rem;
+      right: 2rem;
+    }
+  }
+  .lds-roller div {
+    animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    transform-origin: 50% 50%;
+  }
+  .lds-roller div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 0.2625rem;
+    height: 0.2625rem;
+    border-radius: 50%;
+    background: rgb(233, 74, 21);
+    margin: -0.15rem 0 0 -0.15rem;
+  }
+  .lds-roller div:nth-child(1) {
+    animation-delay: -0.036s;
+  }
+  .lds-roller div:nth-child(1):after {
+    top: 2.3625rem;
+    left: 2.3625rem;
+  }
+  .lds-roller div:nth-child(2) {
+    animation-delay: -0.072s;
+  }
+  .lds-roller div:nth-child(2):after {
+    top: 2.55rem;
+    left: 2.1rem;
+  }
+  .lds-roller div:nth-child(3) {
+    animation-delay: -0.108s;
+  }
+  .lds-roller div:nth-child(3):after {
+    top: 2.6625rem;
+    left: 1.8rem;
+  }
+  .lds-roller div:nth-child(4) {
+    animation-delay: -0.144s;
+  }
+  .lds-roller div:nth-child(4):after {
+    top: 2.7rem;
+    left: 1.5rem;
+  }
+  .lds-roller div:nth-child(5) {
+    animation-delay: -0.18s;
+  }
+  .lds-roller div:nth-child(5):after {
+    top: 2.6625rem;
+    left: 1.2rem;
+  }
+  .lds-roller div:nth-child(6) {
+    animation-delay: -0.216s;
+  }
+  .lds-roller div:nth-child(6):after {
+    top: 2.55rem;
+    left: 0.9rem;
+  }
+  .lds-roller div:nth-child(7) {
+    animation-delay: -0.252s;
+  }
+  .lds-roller div:nth-child(7):after {
+    top: 2.3625rem;
+    left: 0.6375rem;
+  }
+  .lds-roller div:nth-child(8) {
+    animation-delay: -0.288s;
+  }
+  .lds-roller div:nth-child(8):after {
+    top: 2.1rem;
+    left: 0.45rem;
+  }
+  @keyframes lds-roller {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
     }
   }
 </style>
