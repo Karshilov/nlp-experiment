@@ -149,6 +149,7 @@
       .join("");
     document.querySelector(".editor").appendChild(strong);
     content = document.querySelector(".editor").innerHTML.split(/<[^<>]*>/).join("");
+    isEmpty = false;
     isLoading = false;
   };
 </script>
