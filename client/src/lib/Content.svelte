@@ -1,5 +1,4 @@
 <script context="module" lang="ts">
-  //span，另外行内元素还包括img、a、big、small、sub、sup、strong、u、button
   const inlineNames = [
     "img",
     "a",
