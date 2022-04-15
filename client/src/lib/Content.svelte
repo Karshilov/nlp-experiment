@@ -10,6 +10,10 @@
     "u",
     "button",
   ];
+  const whiteList = [
+    "insertFromDrop",
+    "insertParagraph"
+  ]
 </script>
 
 <script lang="ts">
@@ -24,15 +28,16 @@
   let isLoading = false;
   const getContent = (node: HTMLElement) => {
     const listener = (e: InputEvent) => {
-      if (e.inputType.startsWith("in") && e.inputType !== "insertParagraph") {
+      console.log(e)
+      if (e.inputType.startsWith("insert") && !whiteList.includes(e.inputType)) {
         isEmpty = false;
         if (e.isComposing) return;
         if (!Object.is(document.activeElement, node)) return;
         const selection = getSelection();
         const range = selection.getRangeAt(0);
         e.preventDefault();
-        const text = e.data ? e.data : e.dataTransfer.getData("text/plain");
-        let newText = text.split(/<[^<>]*>/).join("");
+        const text = e.data !== null ? e.data : e.dataTransfer.getData("text/plain");
+        let newText = text.split(/<[^<>]*>/).join("").replace(/ /, '\xa0');
         const targetNode = selection.focusNode;
         const previousText = targetNode.textContent;
         let { startContainer, endContainer, startOffset, endOffset } = range;
