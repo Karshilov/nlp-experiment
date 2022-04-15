@@ -32,7 +32,7 @@
         const selection = getSelection();
         const range = selection.getRangeAt(0);
         e.preventDefault();
-        const text = e.data ? e.data : e.dataTransfer.getData("text/html");
+        const text = e.data ? e.data : e.dataTransfer.getData("text/plain");
         let newText = text.split(/<[^<>]*>/).join("");
         const targetNode = selection.focusNode;
         const previousText = targetNode.textContent;
