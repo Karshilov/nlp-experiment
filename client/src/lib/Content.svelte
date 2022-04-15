@@ -148,6 +148,7 @@
       .split(/ /)
       .join("");
     document.querySelector(".editor").appendChild(strong);
+    content = document.querySelector(".editor").innerHTML.split(/<[^<>]*>/).join("");
     isLoading = false;
   };
 </script>
