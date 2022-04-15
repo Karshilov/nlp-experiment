@@ -112,7 +112,7 @@
       }
     };
     const inputListener = (_e: InputEvent) => {
-      content = node.innerHTML.split(/<[^<>]*>/).join("");
+      content = node.innerHTML.split(/<\/*strong>/).join("");
       if (content) isEmpty = false;
       else isEmpty = true;
     };
@@ -136,7 +136,7 @@
     });
     document.querySelector(".editor").innerHTML = document
       .querySelector(".editor")
-      .innerHTML.replace(/<strong[^<>]*>/, "");
+      .innerHTML.replace(/<\/*strong>/, "");
     const res = await axios.post("http://127.0.0.1:8000/generate", {
       prefix,
       model_type: $modelType === "yq",
@@ -144,10 +144,10 @@
     const strong = document.createElement("strong");
     strong.textContent = res.data.result
       .slice(prefix.length)
-      .split(/ /)
+      .split(/\s+/)
       .join("");
     document.querySelector(".editor").appendChild(strong);
-    content = document.querySelector(".editor").innerHTML.split(/<[^<>]*>/).join("");
+    content = document.querySelector(".editor").innerHTML.split(/<\/*strong>/).join("");
     isEmpty = false;
     isLoading = false;
   };
