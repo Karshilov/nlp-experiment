@@ -10,10 +10,6 @@
     "u",
     "button",
   ];
-  const whiteList = [
-    "insertFromDrop",
-    "insertParagraph"
-  ]
 </script>
 
 <script lang="ts">
@@ -28,10 +24,8 @@
   let isLoading = false;
   const getContent = (node: HTMLElement) => {
     const listener = (e: InputEvent) => {
-      console.log(e)
-      if (e.inputType.startsWith("insert") && !whiteList.includes(e.inputType)) {
+      if (e.inputType === "insertFromPaste") {
         isEmpty = false;
-        if (e.isComposing) return;
         if (!Object.is(document.activeElement, node)) return;
         const selection = getSelection();
         const range = selection.getRangeAt(0);
