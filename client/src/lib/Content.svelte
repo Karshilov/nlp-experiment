@@ -128,7 +128,7 @@
   const getGeneratedText = async () => {
     isLoading = true;
     const prefixes = content.split(/。！？/).filter((i) => i.trim() !== "");
-    let prefix = "，";
+    let prefix = "";
     prefixes.reverse().forEach((value) => {
       if (prefix.length < 200) prefix = value + prefix;
       else return;
