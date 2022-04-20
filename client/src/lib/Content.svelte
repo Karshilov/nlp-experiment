@@ -150,7 +150,6 @@
     };
     const inputListener = (_e: InputEvent) => {
       content = node.innerHTML.split(/<[^<>]*>/).join("");
-      console.log(content);
       if (content) isEmpty = false;
       else isEmpty = true;
     };
