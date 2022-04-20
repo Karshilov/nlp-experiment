@@ -10,6 +10,40 @@
     "u",
     "button",
   ];
+  const colorfulText = [
+    {
+      text: '虽',
+      color: 'red'
+    },
+    {
+      text: '然',
+      color: 'blue'
+    },
+    {
+      text: '不',
+      color: 'green'
+    },
+    {
+      text: '像',
+      color: 'yellow'
+    },
+    {
+      text: '，',
+      color: 'black'
+    },
+    {
+      text: '但',
+      color: 'gray'
+    },
+    {
+      text: '是',
+      color: 'teal'
+    },
+    {
+      text: '这',
+      color: 'purple'
+    },
+  ]
 </script>
 
 <script lang="ts">
@@ -163,18 +197,11 @@
 <div class="container">
   <div class="placeholder" hidden={!isEmpty}>请输入一段文本作为开头</div>
   <div class="editor" contenteditable use:getContent>
-    <span style="color: red;">虽</span>
-    <span style="color: blue;">然</span>
-    <span style="color: green;">不</span>
-    <span style="color: yellow;">像</span>
-    <span>，</span>
-    <span style="color: teal;">但</span>
-    <span style="color: grey;">是</span>
-    <span style="color: purple;">这</span>
-    <span />
+    {#each colorfulText as item}
+      <span style={`color: ${item.color}`}>{item.text}</span>
+    {/each}
     <strong>
-      <span style="text-decoration: line-through;">真的</span>
-      <span> 是个 </span>
+      <span style="text-decoration: line-through;">真的</span><span>是个</span>
       <div style="color: linear-gradient(purple, blue)">
         富文本编辑器
         <sup>哦</sup>
