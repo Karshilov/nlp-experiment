@@ -20,7 +20,7 @@
   import RangeSelection from "./RangeSelection";
   let modelType: Writable<string> = getContext("type");
   let content = "";
-  let isEmpty = true;
+  let isEmpty = false;
   let isLoading = false;
   const getContent = (node: HTMLElement) => {
     const listener = (e: InputEvent) => {
@@ -30,8 +30,12 @@
         const selection = getSelection();
         const range = selection.getRangeAt(0);
         e.preventDefault();
-        const text = e.data !== null ? e.data : e.dataTransfer.getData("text/plain");
-        let newText = text.split(/<[^<>]*>/).join("").replace(/ /, '\xa0');
+        const text =
+          e.data !== null ? e.data : e.dataTransfer.getData("text/plain");
+        let newText = text
+          .split(/<[^<>]*>/)
+          .join("")
+          .replace(/ /, "\xa0");
         const targetNode = selection.focusNode;
         const previousText = targetNode.textContent;
         let { startContainer, endContainer, startOffset, endOffset } = range;
@@ -60,7 +64,7 @@
               continue;
             } else if (child.contains(endContainer)) {
               fg = 2;
-              RangeSelection(endContainer, endOffset, child, true);
+              RangeSelection(endContainer, endOffset, child, false);
               lca.insertBefore(newNode, child);
               endContainer = child;
             }
@@ -111,7 +115,8 @@
       }
     };
     const inputListener = (_e: InputEvent) => {
-      content = node.innerHTML.split(/<\/*strong>/).join("");
+      content = node.innerHTML.split(/<[^<>]*>/).join("");
+      console.log(content);
       if (content) isEmpty = false;
       else isEmpty = true;
     };
@@ -146,7 +151,10 @@
       .split(/\s+/)
       .join("");
     document.querySelector(".editor").appendChild(strong);
-    content = document.querySelector(".editor").innerHTML.split(/<\/*strong>/).join("");
+    content = document
+      .querySelector(".editor")
+      .innerHTML.split(/<\/*strong>/)
+      .join("");
     isEmpty = false;
     isLoading = false;
   };
@@ -154,7 +162,25 @@
 
 <div class="container">
   <div class="placeholder" hidden={!isEmpty}>请输入一段文本作为开头</div>
-  <div class="editor" contenteditable use:getContent />
+  <div class="editor" contenteditable use:getContent>
+    <span style="color: red;">虽</span>
+    <span style="color: blue;">然</span>
+    <span style="color: green;">不</span>
+    <span style="color: yellow;">像</span>
+    <span>，</span>
+    <span style="color: teal;">但</span>
+    <span style="color: grey;">是</span>
+    <span style="color: purple;">这</span>
+    <span />
+    <strong>
+      <span style="text-decoration: line-through;">真的</span>
+      <span> 是个 </span>
+      <div style="color: linear-gradient(purple, blue)">
+        富文本编辑器
+        <sup>哦</sup>
+      </div>
+    </strong>
+  </div>
 </div>
 {#if !isLoading}
   <img src={pen} alt="" on:click={getGeneratedText} />
