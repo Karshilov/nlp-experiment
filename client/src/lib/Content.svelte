@@ -13,7 +13,7 @@
   const colorfulText = [
     {
       text: "虽",
-      color: "red",
+      color: "black",
     },
     {
       text: "然",
@@ -29,7 +29,7 @@
     },
     {
       text: "，",
-      color: "black",
+      color: "red",
     },
     {
       text: "但",
