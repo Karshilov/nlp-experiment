@@ -12,38 +12,38 @@
   ];
   const colorfulText = [
     {
-      text: '虽',
-      color: 'red'
+      text: "虽",
+      color: "red",
     },
     {
-      text: '然',
-      color: 'blue'
+      text: "然",
+      color: "blue",
     },
     {
-      text: '不',
-      color: 'green'
+      text: "不",
+      color: "green",
     },
     {
-      text: '像',
-      color: 'yellow'
+      text: "像",
+      color: "yellow",
     },
     {
-      text: '，',
-      color: 'black'
+      text: "，",
+      color: "black",
     },
     {
-      text: '但',
-      color: 'gray'
+      text: "但",
+      color: "gray",
     },
     {
-      text: '是',
-      color: 'teal'
+      text: "是",
+      color: "teal",
     },
     {
-      text: '这',
-      color: 'purple'
+      text: "这",
+      color: "purple",
     },
-  ]
+  ];
 </script>
 
 <script lang="ts">
@@ -66,10 +66,7 @@
         e.preventDefault();
         const text =
           e.data !== null ? e.data : e.dataTransfer.getData("text/plain");
-        let newText = text
-          .split(/<[^<>]*>/)
-          .join("")
-          .replace(/ /, "\xa0");
+        let newText = text.replace(/ /, "\xa0");
         const targetNode = selection.focusNode;
         const previousText = targetNode.textContent;
         let { startContainer, endContainer, startOffset, endOffset } = range;
@@ -114,18 +111,20 @@
             inlineNames.includes(startContainer.nodeName.toLowerCase()) &&
             !inlineNames.includes(endContainer.nodeName.toLowerCase())
           ) {
-            lca.replaceChild(
-              document.createTextNode(endContainer.textContent),
-              endContainer
+            const newEnd = document.createElement("span");
+            endContainer.childNodes.forEach((child) =>
+              newEnd.appendChild(child)
             );
+            lca.replaceChild(newEnd, endContainer);
           } else if (
             !inlineNames.includes(startContainer.nodeName.toLowerCase()) &&
             inlineNames.includes(endContainer.nodeName.toLowerCase())
           ) {
-            lca.replaceChild(
-              document.createTextNode(startContainer.textContent),
-              startContainer
+            const newStart = document.createElement("span");
+            startContainer.childNodes.forEach((child) =>
+              newStart.appendChild(child)
             );
+            lca.replaceChild(newStart, startContainer);
           }
           rangeType = 1;
         }

@@ -5,13 +5,13 @@ export default function RangeSelection(
   flag: boolean
 ) {
   if (flag) {
-    let fg = 0;
+    let fg = 0, removeList = [];
     if (target.isSameNode(container)) {
       target.textContent = target.textContent.slice(0, offset);
       return;
     }
     for (const child of container.childNodes) {
-      if (fg) container.removeChild(child);
+      if (fg) removeList.push(child);
       if (child.contains(target)) {
         fg = 1;
         if (child.isSameNode(target)) {
@@ -20,8 +20,9 @@ export default function RangeSelection(
       }
       if (!fg) continue;
     }
+    removeList.forEach(child => container.removeChild(child))
   } else {
-    let fg = 0;
+    let fg = 0, removeList = [];
     if (target.isSameNode(container)) {
       target.textContent = target.textContent.slice(offset);
       return;
@@ -34,7 +35,8 @@ export default function RangeSelection(
           child.textContent = child.textContent.slice(offset);
         } else RangeSelection(target, offset, child, flag);
       }
-      if (!fg) container.removeChild(child);
+      if (!fg) removeList.push(child);
     }
+    removeList.forEach(child => container.removeChild(child))
   }
 }
