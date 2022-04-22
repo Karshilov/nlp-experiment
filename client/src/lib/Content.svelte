@@ -9,6 +9,7 @@
     "strong",
     "u",
     "button",
+    "font",
   ];
   const colorfulText = [
     {
@@ -107,6 +108,7 @@
             }
           }
           removeList.forEach((child) => lca.removeChild(child));
+          console.log(startContainer.nodeName.toLowerCase(), endContainer.nodeName.toLowerCase())
           if (
             inlineNames.includes(startContainer.nodeName.toLowerCase()) &&
             !inlineNames.includes(endContainer.nodeName.toLowerCase())
